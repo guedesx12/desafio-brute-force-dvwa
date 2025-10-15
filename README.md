@@ -1,3 +1,4 @@
+````markdown
 # Desafio de Segurança: Ataque de Força Bruta com Kali Linux e Hydra
 
 Este repositório documenta a execução de um ataque de força bruta em um ambiente de laboratório controlado, como parte de um desafio de segurança da informação. O objetivo foi comprometer uma aplicação web vulnerável (DVWA) para demonstrar a eficácia de ferramentas de pentest e a importância de políticas de senhas robustas.
@@ -9,7 +10,7 @@ Este projeto prático permitiu desenvolver e demonstrar as seguintes competênci
 - **Compreender ataques de força bruta** em serviços web.
 - **Utilizar o Kali Linux e a ferramenta Hydra** para realizar uma auditoria de segurança.
 - **Documentar processos técnicos** de forma clara e estruturada.
-- **Reconhecer vulnerabilidades de autenticação** e propor medidas de mitigação eficazes.
+- **Reconhecer vulnerabilities de autenticação** e propor medidas de mitigação eficazes.
 - **Utilizar o GitHub como portfólio técnico** para compartilhar evidências e documentação.
 
 **Nota:** Embora o desafio sugerisse o uso da ferramenta Medusa, optei por utilizar o **Hydra**, que é uma ferramenta igualmente poderosa e amplamente utilizada para a mesma finalidade no ecossistema Kali Linux.
@@ -28,12 +29,61 @@ Este projeto prático permitiu desenvolver e demonstrar as seguintes competênci
 
 ## Etapas da Execução
 
-O processo foi dividido em duas fases principais: a tentativa inicial de ataque e o ataque ajustado e bem-sucedido.
+O processo iniciou-se com uma tentativa de ataque padrão, que foi bloqueada pelo servidor. Isso demonstrou a existência de um mecanismo de segurança básico. Para contornar essa proteção, o ataque foi ajustado para ser mais lento e menos agressivo.
 
-### 1. Primeira Tentativa e Análise do Erro
+### Ataque Ajustado e Bem-Sucedido
 
-A primeira tentativa de ataque foi executada com as configurações padrão do Hydra, utilizando um número elevado de tarefas paralelas.
+A solução foi limitar o número de tentativas simultâneas com o parâmetro `-t 4`, evitando que o ataque fosse detectado e bloqueado.
 
-**Comando Inicial:**
+**Comando Final Utilizado:**
 ```bash
-hydra -l admin -P /usr/share/wordlists/rockyou.txt 192.168.70.133 http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed" -V
+hydra -l admin -P /usr/share/wordlists/rockyou.txt -t 4 192.168.70.133 http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed" -V
+````
+
+**Resultado:**
+O ataque foi executado com sucesso, descobrindo a senha correta para o usuário `admin`, como evidenciado na captura de tela abaixo.
+
+**Credenciais Descobertas:**
+
+  - **Login:** `admin`
+  - **Senha:** `password`
+
+-----
+
+## Análise de Vulnerabilidades e Medidas de Mitigação
+
+A principal falha de segurança explorada foi o uso de uma **credencial padrão extremamente fraca** (`admin`/`password`), permitindo o sucesso do ataque com uma wordlist comum.
+
+### Recomendações e Medidas de Mitigação
+
+Para proteger a aplicação contra ataques semelhantes, recomenda-se:
+
+1.  **Política de Senhas Fortes:** Exigir senhas complexas.
+2.  **Bloqueio de Contas (Account Lockout):** Bloquear contas após múltiplas tentativas falhas.
+3.  **Rate Limiting:** Limitar o número de requisições de login por IP.
+4.  **Implementação de CAPTCHA:** Diferenciar usuários humanos de bots.
+5.  **Autenticação de Múltiplos Fatores (MFA):** Adicionar uma segunda camada de verificação.
+
+## Conclusão
+
+Este desafio demonstrou com sucesso a execução de um ataque de força bruta e a importância de ajustar a abordagem para contornar defesas simples. O resultado reforça a necessidade crítica de implementar múltiplas camadas de segurança para proteger sistemas de autenticação.
+
+```
+
+---
+
+### **Passo 2: Insira o Link da Sua Imagem**
+
+Agora, no texto que você acabou de colar, encontre esta linha:
+
+`![AQUI VAI O SEU PRINT DO ATAQUE BEM-SUCEDIDO](seu-print.png)`
+
+Apague essa linha inteira e substitua por esta aqui, usando o nome exato do seu arquivo:
+
+`![Resultado do Ataque com Hydra](Ataque%20HIDRA%201.png)`
+
+**Por que `%20`?**
+O nome do seu arquivo tem espaços ("Ataque HIDRA 1.png"). Em links de internet (e no Markdown), o espaço é representado por `%20`.
+
+Depois de fazer essa troca, salve o arquivo clicando em **"Commit changes"**. Seu README estará completo e com a imagem aparecendo!
+```
