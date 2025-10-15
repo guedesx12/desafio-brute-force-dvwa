@@ -66,5 +66,3 @@ Autenticação de Múltiplos Fatores (MFA): Adicionar uma segunda camada de veri
 
 Conclusão
 Este desafio demonstrou com sucesso a execução de um ataque de força bruta e a importância de ajustar a abordagem para contornar defesas simples. O resultado reforça a necessidade crítica de implementar múltiplas camadas de segurança para proteger sistemas de autenticação.
-
-
